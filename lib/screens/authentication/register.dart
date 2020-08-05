@@ -13,6 +13,7 @@ class _RegisterState extends State<Register> {
   final _formkey = GlobalKey<FormState>();
   String email = '';
   String pass = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +72,20 @@ class _RegisterState extends State<Register> {
                         Text('Register', style: TextStyle(color: Colors.white)),
                     onPressed: () async {
                       if (_formkey.currentState.validate()) {
-                        print(email);
-                        print(pass);
+                        dynamic result = await _auth.registerEmail(email, pass);
+
+                        if (result == null) {
+                          setState(() {
+                            error = 'Please enter Valid Email';
+                          });
+                        }
                       }
                     },
+                  ),
+                  SizedBox(height: 20.0),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.red, fontSize: 14.0),
                   )
                 ],
               ),
