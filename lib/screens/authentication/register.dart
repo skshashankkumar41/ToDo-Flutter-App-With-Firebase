@@ -39,6 +39,13 @@ class _RegisterState extends State<Register> {
                 children: <Widget>[
                   SizedBox(height: 20.0),
                   TextFormField(
+                    validator: (val) {
+                      if (val.isEmpty) {
+                        return 'Enter an Email';
+                      } else {
+                        return null;
+                      }
+                    },
                     onChanged: (val) {
                       setState(() {
                         email = val;
@@ -48,6 +55,9 @@ class _RegisterState extends State<Register> {
                   SizedBox(height: 20.0),
                   TextFormField(
                     obscureText: true,
+                    validator: (val) => val.length < 6
+                        ? 'Enter a password 6+ chars long'
+                        : null,
                     onChanged: (val) {
                       setState(() {
                         pass = val;
@@ -60,8 +70,10 @@ class _RegisterState extends State<Register> {
                     child:
                         Text('Register', style: TextStyle(color: Colors.white)),
                     onPressed: () async {
-                      print("Email is $email");
-                      print("Password is $pass");
+                      if (_formkey.currentState.validate()) {
+                        print(email);
+                        print(pass);
+                      }
                     },
                   )
                 ],
