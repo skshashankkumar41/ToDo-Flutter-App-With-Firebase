@@ -10,6 +10,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
+  final _formkey = GlobalKey<FormState>();
   String email = '';
   String pass = '';
 
@@ -33,6 +34,7 @@ class _RegisterState extends State<Register> {
         body: Container(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
             child: Form(
+              key: _formkey,
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 20.0),
